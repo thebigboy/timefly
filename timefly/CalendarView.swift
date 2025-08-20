@@ -157,7 +157,7 @@ struct CalendarView: View {
                     AddEditViewV2(
                         item: ScheduleItem(
                             title: "",
-                            date: selectedDate
+                            date: combineDateWithCurrentTime(selectedDate)
                         ),
                         isNew: true
                     )
@@ -218,6 +218,26 @@ struct CalendarView: View {
         } catch {
             print("保存完成状态失败: \(error.localizedDescription)")
         }
+    }
+    
+    private func combineDateWithCurrentTime(_ date: Date) -> Date {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        // Get date components from selected date
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        // Get time components from current time
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: now)
+        
+        // Combine them
+        var combinedComponents = DateComponents()
+        combinedComponents.year = dateComponents.year
+        combinedComponents.month = dateComponents.month
+        combinedComponents.day = dateComponents.day
+        combinedComponents.hour = timeComponents.hour
+        combinedComponents.minute = timeComponents.minute
+        
+        return calendar.date(from: combinedComponents) ?? date
     }
 }
 

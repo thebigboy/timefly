@@ -140,7 +140,7 @@ struct AddEditViewV2: View {
         case .daily: selectedPatternIndex = index(of: .daily)
         case .weekly(let wd): selectedPatternIndex = index(of: .weekly(weekday: 2)); weeklyWeekday = wd
         case .monthlyByDay: selectedPatternIndex = index(of: .monthlyByDay)
-        //case .yearly: selectedPatternIndex = index(of: .yearly)
+        case .yearly: selectedPatternIndex = index(of: .yearly)
         // Handle legacy patterns that are no longer in the simplified list
         case .weekdays, .everyNDays, .monthlyNthWeekday: selectedPatternIndex = index(of: .none)
         }
@@ -158,15 +158,23 @@ struct AddEditViewV2: View {
             item.tags = tagsInput.split(separator: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
             item.colorHex = color.toHexString()
 
-            if isNew { context.insert(item) }  // insert only when creating
-
-            if wantReminder {
-                let ids = try await NotificationManager.shared.scheduleNotifications(for: item)
-                item.notificationIds = ids
+            if isNew {
+                // For new schedules, create repeated schedules based on pattern
+                let schedules = createRepeatedSchedules(from: item, pattern: chosen)
+                for schedule in schedules {
+                    context.insert(schedule)
+                }
             } else {
-                NotificationManager.shared.cancelNotifications(ids: item.notificationIds)
-                item.notificationIds.removeAll()
+                // For existing schedules, just update the current one
+                if wantReminder {
+                    let ids = try await NotificationManager.shared.scheduleNotifications(for: item)
+                    item.notificationIds = ids
+                } else {
+                    NotificationManager.shared.cancelNotifications(ids: item.notificationIds)
+                    item.notificationIds.removeAll()
+                }
             }
+            
             try context.save()
             dismiss()
         } catch { print("保存失败: \(error)") }
@@ -181,6 +189,121 @@ struct AddEditViewV2: View {
 
     private func index(of pattern: RepeatPattern) -> Int { patterns.firstIndex { $0.title == pattern.title } ?? 0 }
     private func weekdayName(_ v: Int) -> String { ["周日","周一","周二","周三","周四","周五","周六"][max(1,min(7,v))-1] }
+    
+    private func createRepeatedSchedules(from baseItem: ScheduleItem, pattern: RepeatPattern) -> [ScheduleItem] {
+        var schedules: [ScheduleItem] = []
+        let calendar = Calendar.current
+        
+        switch pattern {
+        case .none:
+            // No repetition, just create one schedule
+            let schedule = createScheduleItem(from: baseItem, date: baseItem.date)
+            schedules.append(schedule)
+            
+        case .daily:
+            // Create schedules for the next 7 days
+            for i in 0..<7 {
+                if let date = calendar.date(byAdding: .day, value: i, to: baseItem.date) {
+                    let schedule = createScheduleItem(from: baseItem, date: date)
+                    schedules.append(schedule)
+                }
+            }
+            
+        case .weekly(let weekday):
+            // Create schedules for the next 7 weeks on the specified weekday
+            let startDate = baseItem.date
+            for i in 0..<7 {
+                if let date = calendar.date(byAdding: .weekOfYear, value: i, to: startDate) {
+                    // Adjust to the correct weekday
+                    let adjustedDate = adjustToWeekday(date: date, weekday: weekday)
+                    let schedule = createScheduleItem(from: baseItem, date: adjustedDate)
+                    schedules.append(schedule)
+                }
+            }
+            
+        case .monthlyByDay:
+            // Create schedules for the next 3 months on the same day
+            for i in 0..<3 {
+                if let date = calendar.date(byAdding: .month, value: i, to: baseItem.date) {
+                    // Handle cases where the day doesn't exist in the target month
+                    let adjustedDate = adjustToLastDayOfMonthIfNeeded(date: date)
+                    let schedule = createScheduleItem(from: baseItem, date: adjustedDate)
+                    schedules.append(schedule)
+                }
+            }
+            
+        case .yearly:
+            // Create schedules for the next 3 years on the same date
+            for i in 0..<3 {
+                if let date = calendar.date(byAdding: .year, value: i, to: baseItem.date) {
+                    let schedule = createScheduleItem(from: baseItem, date: date)
+                    schedules.append(schedule)
+                }
+            }
+            
+        default:
+            // For other patterns, just create one schedule
+            let schedule = createScheduleItem(from: baseItem, date: baseItem.date)
+            schedules.append(schedule)
+        }
+        
+        return schedules
+    }
+    
+    private func createScheduleItem(from baseItem: ScheduleItem, date: Date) -> ScheduleItem {
+        let newItem = ScheduleItem(
+            title: baseItem.title,
+            notes: baseItem.notes,
+            date: date,
+            isCompleted: false,
+            repeatPattern: .none, // Individual schedules don't repeat
+            tags: baseItem.tags,
+            colorHex: baseItem.colorHex,
+            notificationIds: []
+        )
+        
+        // Set up notifications if needed
+        if wantReminder {
+            Task {
+                do {
+                    let ids = try await NotificationManager.shared.scheduleNotifications(for: newItem)
+                    newItem.notificationIds = ids
+                } catch {
+                    print("设置通知失败: \(error)")
+                }
+            }
+        }
+        
+        return newItem
+    }
+    
+    private func adjustToWeekday(date: Date, weekday: Int) -> Date {
+        let calendar = Calendar.current
+        let currentWeekday = calendar.component(.weekday, from: date)
+        let daysToAdd = (weekday - currentWeekday + 7) % 7
+        return calendar.date(byAdding: .day, value: daysToAdd, to: date) ?? date
+    }
+    
+    private func adjustToLastDayOfMonthIfNeeded(date: Date) -> Date {
+        let calendar = Calendar.current
+        let targetDay = calendar.component(.day, from: date)
+        
+        // Get the range of days in the target month
+        guard let range = calendar.range(of: .day, in: .month, for: date) else {
+            return date
+        }
+        
+        let lastDayOfMonth = range.upperBound - 1
+        
+        // If the target day doesn't exist in this month, use the last day
+        if targetDay > lastDayOfMonth {
+            var components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+            components.day = lastDayOfMonth
+            return calendar.date(from: components) ?? date
+        }
+        
+        return date
+    }
 }
 
 extension Collection { subscript(safe index: Index) -> Element? { indices.contains(index) ? self[index] : nil } }
