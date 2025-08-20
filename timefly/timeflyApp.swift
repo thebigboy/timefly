@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@main
+
 struct timeflyApp: App {
     var body: some Scene {
         WindowGroup {
