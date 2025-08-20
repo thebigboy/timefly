@@ -44,11 +44,14 @@ enum RepeatPattern: Codable, Identifiable, CaseIterable, Equatable {
     case everyNDays(n: Int)    // every n days
     case monthlyByDay
     case monthlyNthWeekday(nth: Int, weekday: Int)
+    //case yearly
 
     var id: String { title }
 
     static var allCases: [RepeatPattern] {
-        [.none, .daily, .weekly(weekday: 2), .weekdays, .everyNDays(n: 2), .monthlyByDay, .monthlyNthWeekday(nth: 2, weekday: 2)]
+        [.none, .daily, .weekly(weekday: 2), .monthlyByDay
+         //, .yearly
+        ]
     }
 
     var title: String {
@@ -58,8 +61,9 @@ enum RepeatPattern: Codable, Identifiable, CaseIterable, Equatable {
         case .weekly: return "每周"
         case .weekdays: return "工作日"
         case .everyNDays(let n): return "每 \(n) 天"
-        case .monthlyByDay: return "每月同一天"
+        case .monthlyByDay: return "每月"
         case .monthlyNthWeekday(let nth, _): return "每月第 \(nth) 个周几"
+        //case .yearly: return "每年"
         }
     }
 }

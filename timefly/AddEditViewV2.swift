@@ -16,6 +16,13 @@ struct AddEditViewV2: View {
     @State private var nthWeekday: Int = 2
     @State private var tagsInput: String = ""
     @State private var color: Color = .accentColor
+    @State private var showColorPicker: Bool = false
+    @FocusState private var isTitleFocused: Bool
+    
+    // Predefined color options
+    private let presetColors: [Color] = [
+        .red, .orange, .yellow, .green, .mint, .teal, .cyan, .blue, .indigo, .purple, .pink, .brown
+    ]
 
     let patterns: [RepeatPattern] = RepeatPattern.allCases
 
@@ -23,6 +30,7 @@ struct AddEditViewV2: View {
         Form {
             Section("基本信息") {
                 TextField("标题（必填）", text: $item.title)
+                    .focused($isTitleFocused)
                 // Bind String? to String
                 TextField("备注", text: Binding(
                     get: { item.notes ?? "" },
@@ -43,23 +51,47 @@ struct AddEditViewV2: View {
                     ForEach(patterns.indices, id: \.self) { i in Text(patterns[i].title).tag(i) }
                 }
 
-                Group {
-                    if case .weekly = patterns[safe: selectedPatternIndex] ?? .none {
-                        Picker("周几", selection: $weeklyWeekday) { ForEach(1...7, id: \.self) { w in Text(weekdayName(w)).tag(w) } }
-                    }
-                    if case .everyNDays = patterns[safe: selectedPatternIndex] ?? .none {
-                        Stepper(value: $everyN, in: 2...30) { Text("间隔天数：\(everyN)") }
-                    }
-                    if case .monthlyNthWeekday = patterns[safe: selectedPatternIndex] ?? .none {
-                        Stepper(value: $nth, in: 1...5) { Text("第几周：\(nth)") }
-                        Picker("周几", selection: $nthWeekday) { ForEach(1...7, id: \.self) { w in Text(weekdayName(w)).tag(w) } }
+                // Show weekday picker only for weekly repeat
+                if case .weekly = patterns[safe: selectedPatternIndex] ?? .none {
+                    Picker("周几", selection: $weeklyWeekday) { 
+                        ForEach(1...7, id: \.self) { w in 
+                            Text(weekdayName(w)).tag(w) 
+                        } 
                     }
                 }
                 Toggle("需要提醒", isOn: $wantReminder)
             }
             Section("标签与颜色") {
                 TextField("标签（逗号分隔）", text: $tagsInput)
-                ColorPicker("颜色", selection: $color)
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("颜色")
+                        .font(.headline)
+                    
+                    // Preset color grid
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 8) {
+                        ForEach(presetColors, id: \.self) { presetColor in
+                            Button(action: {
+                                color = presetColor
+                            }) {
+                                Circle()
+                                    .fill(presetColor)
+                                    .frame(width: 30, height: 30)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(color == presetColor ? Color.primary : Color.clear, lineWidth: 3)
+                                    )
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    
+                    // "更多" button for custom color picker
+                    Button("更多") {
+                        showColorPicker = true
+                    }
+                    .foregroundColor(.accentColor)
+                }
             }
             Section {
                 Button(isNew ? "添加" : "保存修改") { Task { await save() } }
@@ -72,6 +104,32 @@ struct AddEditViewV2: View {
         }
         .navigationTitle(isNew ? "新增日程" : "编辑日程")
         .task { initUIState() }
+        .onAppear {
+            if isNew {
+                // Focus on title field when creating new schedule
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    isTitleFocused = true
+                }
+            }
+        }
+        .sheet(isPresented: $showColorPicker) {
+            NavigationStack {
+                VStack {
+                    ColorPicker("选择自定义颜色", selection: $color)
+                        .padding()
+                    Spacer()
+                }
+                .navigationTitle("选择颜色")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("完成") {
+                            showColorPicker = false
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private func initUIState() {
@@ -81,10 +139,10 @@ struct AddEditViewV2: View {
         case .none: selectedPatternIndex = index(of: .none)
         case .daily: selectedPatternIndex = index(of: .daily)
         case .weekly(let wd): selectedPatternIndex = index(of: .weekly(weekday: 2)); weeklyWeekday = wd
-        case .weekdays: selectedPatternIndex = index(of: .weekdays)
-        case .everyNDays(let n): selectedPatternIndex = index(of: .everyNDays(n: 2)); everyN = n
         case .monthlyByDay: selectedPatternIndex = index(of: .monthlyByDay)
-        case .monthlyNthWeekday(let n, let wd): selectedPatternIndex = index(of: .monthlyNthWeekday(nth: 2, weekday: 2)); nth = n; nthWeekday = wd
+        //case .yearly: selectedPatternIndex = index(of: .yearly)
+        // Handle legacy patterns that are no longer in the simplified list
+        case .weekdays, .everyNDays, .monthlyNthWeekday: selectedPatternIndex = index(of: .none)
         }
         tagsInput = item.tags.joined(separator: ", ")
         color = Color(hex: item.colorHex) ?? .accentColor
@@ -95,8 +153,6 @@ struct AddEditViewV2: View {
             let chosen = patterns[safe: selectedPatternIndex] ?? .none
             switch chosen {
             case .weekly: item.repeatPattern = .weekly(weekday: weeklyWeekday)
-            case .everyNDays: item.repeatPattern = .everyNDays(n: everyN)
-            case .monthlyNthWeekday: item.repeatPattern = .monthlyNthWeekday(nth: nth, weekday: nthWeekday)
             default: item.repeatPattern = chosen
             }
             item.tags = tagsInput.split(separator: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
