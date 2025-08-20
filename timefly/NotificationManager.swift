@@ -74,7 +74,7 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             comps.hour = cal.component(.hour, from: baseDate)
             comps.minute = cal.component(.minute, from: baseDate)
             try await add(UNCalendarNotificationTrigger(dateMatching: comps, repeats: true))
-        //case .yearly:
+        case .yearly:
             
         }
         return ids
