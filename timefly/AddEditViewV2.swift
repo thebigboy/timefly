@@ -37,7 +37,7 @@ struct AddEditViewV2: View {
                         item.date = Date()
                     }
                 }
-                .foregroundColor(item.date < Date() ? .gray : .primary)
+                .foregroundColor(item.date < Calendar.current.startOfDay(for: Date()) ? .gray : .primary)
 
                 Picker("重复", selection: $selectedPatternIndex) {
                     ForEach(patterns.indices, id: \.self) { i in Text(patterns[i].title).tag(i) }
@@ -56,9 +56,6 @@ struct AddEditViewV2: View {
                     }
                 }
                 Toggle("需要提醒", isOn: $wantReminder)
-                .onAppear {
-                    wantReminder = true
-                }
             }
             Section("标签与颜色") {
                 TextField("标签（逗号分隔）", text: $tagsInput)
@@ -78,7 +75,8 @@ struct AddEditViewV2: View {
     }
 
     private func initUIState() {
-        wantReminder = !item.notificationIds.isEmpty
+        // For new schedules, default to wanting reminder; for existing ones, use current state
+        wantReminder = isNew ? true : !item.notificationIds.isEmpty
         switch item.repeatPattern {
         case .none: selectedPatternIndex = index(of: .none)
         case .daily: selectedPatternIndex = index(of: .daily)
