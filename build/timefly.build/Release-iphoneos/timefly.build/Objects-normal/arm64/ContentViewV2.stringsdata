@@ -1,0 +1,40 @@
+{
+  "source": "/Users/wangzhen/code/xcode/timefly/timefly/ContentViewV2.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "搜索标题/备注/标签",
+        "location": {
+          "startingColumn": 103,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "萤火虫时光",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "试试添加或调整搜索/标签过滤",
+        "location": {
+          "startingColumn": 112,
+          "startingLine": 30
+        }
+      },
+      {
+        "comment": "",
+        "key": "没有匹配的日程",
+        "location": {
+          "startingColumn": 44,
+          "startingLine": 30
+        }
+      }
+    ]
+  },
+  "version": 1
+}

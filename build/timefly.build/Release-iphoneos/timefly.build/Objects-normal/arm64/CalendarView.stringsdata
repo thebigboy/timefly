@@ -1,0 +1,64 @@
+{
+  "source": "/Users/wangzhen/code/xcode/timefly/timefly/CalendarView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "搜索标题/备注/标签",
+        "location": {
+          "startingColumn": 103,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "萤火虫时光",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld 个日程",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 106
+        }
+      },
+      {
+        "comment": "",
+        "key": "点击此处添加日程",
+        "location": {
+          "startingColumn": 128,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "当天没有日程",
+        "location": {
+          "startingColumn": 52,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "📍",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 144
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 356
+        }
+      }
+    ]
+  },
+  "version": 1
+}

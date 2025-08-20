@@ -1,0 +1,60 @@
+{
+  "" : {
+    "const-values" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timefly-master.swiftconstvalues",
+    "dependencies" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timefly-master.d",
+    "diagnostics" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timefly-master.dia",
+    "emit-module-dependencies" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timefly-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timefly-master-emit-module.dia",
+    "swift-dependencies" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timefly-master.swiftdeps"
+  },
+  "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/AddEditViewV2.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/AddEditViewV2.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/AddEditViewV2.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/AddEditViewV2.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/CalendarView.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/CalendarView.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/CalendarView.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/CalendarView.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/Color+Hex.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/Color+Hex.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/Color+Hex.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/Color+Hex.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/ContentView.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ContentView.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/ContentViewV2.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ContentViewV2.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ContentViewV2.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ContentViewV2.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/NotificationManager.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/NotificationManager.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/NotificationManager.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/NotificationManager.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/ScheduleItem.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ScheduleItem.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ScheduleItem.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/ScheduleItem.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/SchedulesAppV2.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/SchedulesAppV2.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/SchedulesAppV2.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/SchedulesAppV2.o"
+  },
+  "/Users/wangzhen/code/xcode/timefly/timefly/timeflyApp.swift" : {
+    "index-unit-output-path" : "/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timeflyApp.o",
+    "llvm-bc" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timeflyApp.bc",
+    "object" : "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/Objects-normal/arm64/timeflyApp.o"
+  }
+}

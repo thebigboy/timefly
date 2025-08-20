@@ -1,0 +1,15 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "dcf28af1be39d1e0400f90e59b196fc690fea8c7d4fe29a3a77e5c8832d45a0e"
+build_start_time: [1755680488, 838179000]
+build_end_time: [1755680493, 807103000]
+inputs:
+  "/Users/wangzhen/code/xcode/timefly/build/timefly.build/Release-iphoneos/timefly.build/DerivedSources/GeneratedAssetSymbols.swift": [1755680488, 605552371]
+  "/Users/wangzhen/code/xcode/timefly/timefly/AddEditViewV2.swift": [1755680458, 818354781]
+  "/Users/wangzhen/code/xcode/timefly/timefly/CalendarView.swift": [1755680476, 862484847]
+  "/Users/wangzhen/code/xcode/timefly/timefly/Color+Hex.swift": [1755459002, 0]
+  "/Users/wangzhen/code/xcode/timefly/timefly/ContentView.swift": [1755500500, 445197390]
+  "/Users/wangzhen/code/xcode/timefly/timefly/ContentViewV2.swift": [1755494625, 127514400]
+  "/Users/wangzhen/code/xcode/timefly/timefly/NotificationManager.swift": [1755500698, 250531493]
+  "/Users/wangzhen/code/xcode/timefly/timefly/ScheduleItem.swift": [1755459002, 0]
+  "/Users/wangzhen/code/xcode/timefly/timefly/SchedulesAppV2.swift": [1755490189, 117568310]
+  "/Users/wangzhen/code/xcode/timefly/timefly/timeflyApp.swift": [1755500534, 147191125]

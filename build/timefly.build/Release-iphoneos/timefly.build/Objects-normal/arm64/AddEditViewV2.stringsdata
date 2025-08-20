@@ -1,0 +1,160 @@
+{
+  "source": "/Users/wangzhen/code/xcode/timefly/timefly/AddEditViewV2.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "新增日程",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 75
+        }
+      },
+      {
+        "comment": "",
+        "key": "编辑日程",
+        "location": {
+          "startingColumn": 51,
+          "startingLine": 75
+        }
+      },
+      {
+        "comment": "",
+        "key": "基本信息",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "时间与重复",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "标签与颜色",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "标题（必填）",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "备注",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "提醒时间",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "重复",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 41
+        }
+      },
+      {
+        "comment": "",
+        "key": "需要提醒",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 57
+        }
+      },
+      {
+        "comment": "",
+        "key": "周几",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 47
+        }
+      },
+      {
+        "comment": "",
+        "key": "周几",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "间隔天数：%lld",
+        "location": {
+          "startingColumn": 68,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "第几周：%lld",
+        "location": {
+          "startingColumn": 64,
+          "startingLine": 53
+        }
+      },
+      {
+        "comment": "",
+        "key": "标签（逗号分隔）",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "颜色",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "添加",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 67
+        }
+      },
+      {
+        "comment": "",
+        "key": "保存修改",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 67
+        }
+      },
+      {
+        "comment": "",
+        "key": "删除",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 71
+        }
+      }
+    ]
+  },
+  "version": 1
+}
