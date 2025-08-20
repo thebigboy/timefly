@@ -138,13 +138,13 @@ struct CalendarView: View {
                     Button { showAdd = true } label: { Image(systemName: "plus") }
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    Button { currentMonth = Date() } label: {
+                    Button { 
+                        let today = Date()
+                        currentMonth = today
+                        selectedDate = today
+                    } label: {
                         ZStack {
                             Image(systemName: "calendar")
-                            Text("📍")
-                                .font(.system(size: 10, weight: .bold))
-                                .foregroundStyle(.red)
-                                .offset(y: -1)
                         }
                     }
                 }
