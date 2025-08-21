@@ -71,6 +71,8 @@ struct CalendarView: View {
     
     var allTags: [String] { Array(Set(items.flatMap { $0.tags })).sorted() }
     
+    @State private var showSettings = false
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -148,6 +150,9 @@ struct CalendarView: View {
                         }
                     }
                 }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button { showSettings = true } label: { Image(systemName: "gear") }
+                }
             }
             .navigationDestination(for: ScheduleItem.self) { item in
                 AddEditViewV2(item: item, isNew: false)
@@ -163,6 +168,7 @@ struct CalendarView: View {
                     )
                 }
             }
+            .sheet(isPresented: $showSettings) { SettingsView() }
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "搜索标题/备注/标签")
         .task {

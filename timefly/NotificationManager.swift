@@ -75,11 +75,34 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             comps.minute = cal.component(.minute, from: baseDate)
             try await add(UNCalendarNotificationTrigger(dateMatching: comps, repeats: true))
         case .yearly:
+            let month = cal.component(.month, from: baseDate)
+            let day = cal.component(.day, from: baseDate)
+            let hour = cal.component(.hour, from: baseDate)
+            let minute = cal.component(.minute, from: baseDate)
+            
+            // 获取当前年份
+            let currentYear = cal.component(.year, from: Date())
+            
+            // 为当前年份和未来两年创建通知（共3年）
+            for yearOffset in 0..<3 {
+                var comps = DateComponents()
+                comps.year = currentYear + yearOffset
+                comps.month = month
+                comps.day = day
+                comps.hour = hour
+                comps.minute = minute
+                
+                // 创建日期以检查是否已过期
+                if let futureDate = cal.date(from: comps), futureDate > Date() {
+                    try await add(UNCalendarNotificationTrigger(dateMatching: comps, repeats: false))
+                }
+            }
             
         }
         return ids
     }
 
+    // 处理通知响应（用户点击通知）
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let content = response.notification.request.content
         switch response.actionIdentifier {
@@ -88,6 +111,13 @@ final class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         case "SNOOZE_30": await rescheduleSnooze(content: content, minutes: 30)
         default: break
         }
+    }
+    
+    // 处理前台通知显示
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        // 允许在前台显示通知，包括横幅、声音和角标
+        print("前台通知将被显示: \(notification.request.identifier)")
+        return [.banner, .sound, .badge, .list]
     }
 
     private func rescheduleSnooze(content: UNNotificationContent, minutes: Int) async {
